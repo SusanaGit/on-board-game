@@ -27,9 +27,11 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun OnBoardGame() {
-        val treasures = remember {
-            mutableStateOf(0)
-        }
+
+        val treasures = remember { mutableStateOf(0)}
+
+        val direction = remember { mutableStateOf("North")}
+
     }
 
 }
