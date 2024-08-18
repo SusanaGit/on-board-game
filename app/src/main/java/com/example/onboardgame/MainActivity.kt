@@ -6,11 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -39,45 +38,94 @@ class MainActivity : ComponentActivity() {
     fun OnBoardGame() {
 
         val treasures = remember { mutableStateOf(0)}
+        val direction = remember { mutableStateOf("Up")}
 
-        val direction = remember { mutableStateOf("North")}
-
-        Column (
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text(text = "Treasures: ${treasures.value}")
-            Text(text = "Direction: ${direction.value}")
+                .padding(16.dp)
+                .padding(top = 30.dp)
+        ) {
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.End
+            ) {
+                Text(text = "Treasures: ${treasures.value}")
+                Text(text = "Direction: ${direction.value}")
+            }
+        }
 
-            Row() {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp),
+        ) {
+            Column (
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Row() {
 
-                Button(
-                    onClick = {
-                        direction.value = "Left"
-                        if (Random.nextBoolean()) {
+                    Button(onClick = {
+                        direction.value = "Up"
+                        if(Random.nextBoolean()){
                             treasures.value += 1
                         }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowUp,
+                            contentDescription = "Go Up",
+                        )
                     }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Go Left",
-                    )
                 }
 
-                Button(onClick = {
-                    direction.value = "Right"
-                    if(Random.nextBoolean()){
-                        treasures.value += 1
+                Row() {
+
+                    Button(
+                        onClick = {
+                            direction.value = "Left"
+                            if (Random.nextBoolean()) {
+                                treasures.value += 1
+                            }
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowLeft,
+                            contentDescription = "Go Left",
+                        )
                     }
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowForward,
-                        contentDescription = "Go Right",
-                    )
+
+                    Spacer(modifier = Modifier.width(3.dp))
+
+                    Button(onClick = {
+                        direction.value = "Right"
+                        if(Random.nextBoolean()){
+                            treasures.value += 1
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowRight,
+                            contentDescription = "Go Right",
+                        )
+                    }
+                }
+
+                Row() {
+                    Button(onClick = {
+                        direction.value = "Down"
+                        if(Random.nextBoolean()){
+                            treasures.value += 1
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = "Go Down",
+                        )
+                    }
                 }
             }
         }
