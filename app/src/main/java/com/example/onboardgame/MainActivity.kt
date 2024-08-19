@@ -15,8 +15,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.onboardgame.ui.theme.OnBoardGameTheme
@@ -67,8 +71,22 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.End
             ) {
-                Text(text = "Treasures: ${treasures}")
-                Text(text = "Direction: ${direction}")
+                Text(
+                    text = "Treasures: ${treasures}",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontFamily = FontFamily.Cursive,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Magenta
+                    )
+                )
+
+                Text(text = "Direction: ${direction}",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontFamily = FontFamily.Cursive,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Magenta
+                    )
+                )
             }
         }
 
