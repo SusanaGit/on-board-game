@@ -46,9 +46,12 @@ class MainActivity : ComponentActivity() {
     fun OnBoardGame() {
 
         var treasures by remember { mutableStateOf(0)}
-        var direction by remember { mutableStateOf("Up")}
+        var direction by remember { mutableStateOf("N")}
 
         var treasure = remember { mutableStateOf(false)}
+
+        var boatX by remember { mutableStateOf(0.dp) }
+        var boatY by remember { mutableStateOf(0.dp) }
 
         // TREASURES AND DIRECTION LETTERS
         Box(
@@ -107,10 +110,13 @@ class MainActivity : ComponentActivity() {
                 .padding(top = 40.dp)
         ) {
             Image(
+                // <a href="http://www.freepik.com">Designed by Freepik</a>
                 painter = painterResource(id = R.drawable.boat),
                 contentDescription = "boat user",
                 modifier = Modifier
                     .size(50.dp)
+                    .offset(boatX, boatY)
+                    .align(Alignment.Center)
             )
 
         }
@@ -130,15 +136,14 @@ class MainActivity : ComponentActivity() {
                 Row() {
 
                     Button(onClick = {
-                        direction = "Up"
+                        direction = "N"
                         if(Random.nextBoolean()){
                             treasure.value = true
                             treasures += 1
-
                         } else {
                             treasure.value = false
-
                         }
+                        boatY -= 20.dp
                     }) {
                         Icon(
                             imageVector = Icons.Default.KeyboardArrowUp,
@@ -151,11 +156,12 @@ class MainActivity : ComponentActivity() {
 
                     Button(
                         onClick = {
-                            direction = "Left"
+                            direction = "L"
                             if (Random.nextBoolean()) {
                                 treasure.value = true
                                 treasures += 1
                             }
+                            boatX -= 20.dp
                         }
                     ) {
                         Icon(
@@ -167,11 +173,12 @@ class MainActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.width(3.dp))
 
                     Button(onClick = {
-                        direction = "Right"
+                        direction = "R"
                         if(Random.nextBoolean()){
                             treasure.value = true
                             treasures += 1
                         }
+                        boatX += 20.dp
                     }) {
                         Icon(
                             imageVector = Icons.Default.KeyboardArrowRight,
@@ -182,11 +189,12 @@ class MainActivity : ComponentActivity() {
 
                 Row() {
                     Button(onClick = {
-                        direction = "Down"
+                        direction = "S"
                         if(Random.nextBoolean()){
                             treasure.value = true
                             treasures += 1
                         }
+                        boatY += 20.dp
                     }) {
                         Icon(
                             imageVector = Icons.Default.KeyboardArrowDown,
