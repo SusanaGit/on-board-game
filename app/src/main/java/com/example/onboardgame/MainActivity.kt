@@ -43,6 +43,8 @@ class MainActivity : ComponentActivity() {
         val treasures = remember { mutableStateOf(0)}
         val direction = remember { mutableStateOf("Up")}
 
+        val treasure = remember { mutableStateOf(false)}
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -50,6 +52,7 @@ class MainActivity : ComponentActivity() {
         ) {
 
             Image(
+                //<a href="http://www.freepik.com">Designed by Freepik</a>
                 painter = painterResource(id = R.drawable.water),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
@@ -85,7 +88,12 @@ class MainActivity : ComponentActivity() {
                     Button(onClick = {
                         direction.value = "Up"
                         if(Random.nextBoolean()){
+                            treasure.value = true
                             treasures.value += 1
+
+                        } else {
+                            treasure.value = false
+
                         }
                     }) {
                         Icon(
@@ -101,6 +109,7 @@ class MainActivity : ComponentActivity() {
                         onClick = {
                             direction.value = "Left"
                             if (Random.nextBoolean()) {
+                                treasure.value = true
                                 treasures.value += 1
                             }
                         }
@@ -116,6 +125,7 @@ class MainActivity : ComponentActivity() {
                     Button(onClick = {
                         direction.value = "Right"
                         if(Random.nextBoolean()){
+                            treasure.value = true
                             treasures.value += 1
                         }
                     }) {
@@ -130,6 +140,7 @@ class MainActivity : ComponentActivity() {
                     Button(onClick = {
                         direction.value = "Down"
                         if(Random.nextBoolean()){
+                            treasure.value = true
                             treasures.value += 1
                         }
                     }) {
@@ -140,6 +151,26 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+
+            if (treasure.value){
+                ShowTreasure()
+                treasure.value = false
+            }
+        }
+    }
+
+    @Composable
+    fun ShowTreasure(){
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.treasure),
+                contentDescription = "treasure image",
+                modifier = Modifier.size(200.dp),
+                contentScale = ContentScale.Crop
+            )
         }
     }
 
