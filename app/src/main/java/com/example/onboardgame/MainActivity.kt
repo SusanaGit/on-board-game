@@ -41,10 +41,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun OnBoardGame() {
 
-        val treasures = remember { mutableStateOf(0)}
-        val direction = remember { mutableStateOf("Up")}
+        var treasures by remember { mutableStateOf(0)}
+        var direction by remember { mutableStateOf("Up")}
 
-        val treasure = remember { mutableStateOf(false)}
+        var treasure = remember { mutableStateOf(false)}
 
         Box(
             modifier = Modifier
@@ -67,8 +67,8 @@ class MainActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.End
             ) {
-                Text(text = "Treasures: ${treasures.value}")
-                Text(text = "Direction: ${direction.value}")
+                Text(text = "Treasures: ${treasures}")
+                Text(text = "Direction: ${direction}")
             }
         }
 
@@ -87,10 +87,10 @@ class MainActivity : ComponentActivity() {
                 Row() {
 
                     Button(onClick = {
-                        direction.value = "Up"
+                        direction = "Up"
                         if(Random.nextBoolean()){
                             treasure.value = true
-                            treasures.value += 1
+                            treasures += 1
 
                         } else {
                             treasure.value = false
@@ -108,10 +108,10 @@ class MainActivity : ComponentActivity() {
 
                     Button(
                         onClick = {
-                            direction.value = "Left"
+                            direction = "Left"
                             if (Random.nextBoolean()) {
                                 treasure.value = true
-                                treasures.value += 1
+                                treasures += 1
                             }
                         }
                     ) {
@@ -124,10 +124,10 @@ class MainActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.width(3.dp))
 
                     Button(onClick = {
-                        direction.value = "Right"
+                        direction = "Right"
                         if(Random.nextBoolean()){
                             treasure.value = true
-                            treasures.value += 1
+                            treasures += 1
                         }
                     }) {
                         Icon(
@@ -139,10 +139,10 @@ class MainActivity : ComponentActivity() {
 
                 Row() {
                     Button(onClick = {
-                        direction.value = "Down"
+                        direction = "Down"
                         if(Random.nextBoolean()){
                             treasure.value = true
-                            treasures.value += 1
+                            treasures += 1
                         }
                     }) {
                         Icon(
@@ -156,7 +156,6 @@ class MainActivity : ComponentActivity() {
             if (treasure.value){
                 ShowTreasure(treasure)
             }
-
         }
     }
 
@@ -168,8 +167,9 @@ class MainActivity : ComponentActivity() {
         }
 
         if (treasureVisible) {
+
             LaunchedEffect(key1 = treasure.value) {
-                delay(1500L)
+                delay(1000L)
                 treasureVisible = false
                 treasure.value = false
             }
@@ -179,6 +179,7 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 Image(
+                    //<a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
                     painter = painterResource(id = R.drawable.treasure),
                     contentDescription = "treasure image",
                     modifier = Modifier.size(200.dp),
