@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.onboardgame.ui.theme.OnBoardGameTheme
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -153,24 +154,37 @@ class MainActivity : ComponentActivity() {
             }
 
             if (treasure.value){
-                ShowTreasure()
-                treasure.value = false
+                ShowTreasure(treasure)
             }
+
         }
     }
 
     @Composable
-    fun ShowTreasure(){
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.treasure),
-                contentDescription = "treasure image",
-                modifier = Modifier.size(200.dp),
-                contentScale = ContentScale.Crop
-            )
+    fun ShowTreasure(treasure: MutableState<Boolean>){
+
+        var treasureVisible by remember {
+            mutableStateOf(treasure.value)
+        }
+
+        if (treasureVisible) {
+            LaunchedEffect(key1 = treasure.value) {
+                delay(1500L)
+                treasureVisible = false
+                treasure.value = false
+            }
+
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.treasure),
+                    contentDescription = "treasure image",
+                    modifier = Modifier.size(200.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
         }
     }
 
