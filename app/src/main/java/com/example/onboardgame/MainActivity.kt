@@ -50,50 +50,60 @@ class MainActivity : ComponentActivity() {
 
         var treasure = remember { mutableStateOf(false)}
 
+        // TREASURES AND DIRECTION LETTERS
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 40.dp)
+                .padding(top = 30.dp)
         ) {
 
             Image(
                 //<a href="http://www.freepik.com">Designed by Freepik</a>
                 painter = painterResource(id = R.drawable.water),
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
 
-            Column (
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(end = 16.dp),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.End
             ) {
-                Text(
-                    text = "Treasures: ${treasures}",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontFamily = FontFamily.Cursive,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Magenta
-                    )
+                Image(
+                    //<a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
+                    painter = painterResource(id = R.drawable.treasure),
+                    contentDescription = "treasure image",
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.TopEnd),
+                    contentScale = ContentScale.Crop
                 )
 
-                Text(text = "Direction: ${direction}",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontFamily = FontFamily.Cursive,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Magenta
+                Box(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.TopEnd)
+                ) {
+                    Text(
+                        text = "${treasures}",
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontFamily = FontFamily.Cursive,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Magenta
+                        ),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(bottom = 20.dp)
                     )
-                )
+                }
             }
         }
 
+        // BUTTONS
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 30.dp)
                 .padding(bottom = 16.dp),
         ) {
             Column (
