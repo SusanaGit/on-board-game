@@ -100,6 +100,21 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // BOAT
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 40.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.boat),
+                contentDescription = "boat user",
+                modifier = Modifier
+                    .size(50.dp)
+            )
+
+        }
+
         // BUTTONS
         Box(
             modifier = Modifier
